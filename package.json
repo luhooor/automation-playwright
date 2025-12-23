@@ -6,15 +6,15 @@
   "scripts": {
     "test": "playwright test",
     "test:staging": "ENVIRONMENT=staging playwright test",
-    "test:preprod": "ENVIRONMENT=preproduction playwright test",
+    "test:preprod": "ENVIRONMENT=preprod playwright test",
     "test:prod": "ENVIRONMENT=production playwright test",
     "test:ui": "playwright test tests/ui",
     "test:ui:staging": "ENVIRONMENT=staging playwright test tests/ui",
-    "test:ui:preprod": "ENVIRONMENT=preproduction playwright test tests/ui",
+    "test:ui:preprod": "ENVIRONMENT=preprod playwright test tests/ui",
     "test:ui:prod": "ENVIRONMENT=production playwright test tests/ui",
     "test:api": "playwright test tests/api",
     "test:api:staging": "ENVIRONMENT=staging playwright test tests/api",
-    "test:api:preprod": "ENVIRONMENT=preproduction playwright test tests/api",
+    "test:api:preprod": "ENVIRONMENT=preprod playwright test tests/api",
     "test:api:prod": "ENVIRONMENT=production playwright test tests/api",
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
@@ -23,7 +23,7 @@
     "report": "playwright show-report"
   },
   "keywords": [],
-  "author": "",
+  "author": "Yanuar Luhur Kurniawan",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.57.0",
