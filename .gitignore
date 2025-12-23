@@ -9,3 +9,5 @@ screenshots/
 .DS_Store
 Reading.md
 learn_js.md
+.env.local
+.env
