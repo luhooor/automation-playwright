@@ -1,4 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
+import { getEnvironment } from "./configs/env";
+
+const environment = getEnvironment();
 
 export default defineConfig({
   testDir: "./tests",
@@ -11,12 +14,16 @@ export default defineConfig({
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
+    baseURL: environment.baseURL,
   },
 
   projects: [
     {
       name: "API",
       testMatch: /api\/.*\.spec\.ts/,
+      use: {
+        baseURL: environment.apiURL,
+      },
     },
 
     {
