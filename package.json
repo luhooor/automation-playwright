@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
+    "test:chrome:case": "playwright test --project=chromium -g",
     "test:staging": "ENVIRONMENT=staging playwright test",
     "test:preprod": "ENVIRONMENT=preprod playwright test",
     "test:prod": "ENVIRONMENT=production playwright test",

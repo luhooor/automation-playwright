@@ -9,7 +9,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: "html",
+  reporter: [["html", { open: "never" }]],
   use: {
     trace: "on-first-retry",
     screenshot: "only-on-failure",
@@ -27,21 +27,22 @@ export default defineConfig({
     },
 
     {
-      name: "UI - Chromium",
+      name: "chromium",
       testMatch: /ui\/.*\.spec\.ts/,
-      use: { ...devices["Desktop Chrome"] },
+      use: { ...devices["Desktop Chrome"], channel: "chrome" },
     },
 
     {
-      name: "UI - Firefox",
+      name: "firefox",
       testMatch: /ui\/.*\.spec\.ts/,
       use: { ...devices["Desktop Firefox"] },
     },
 
     {
-      name: "UI - Webkit",
+      name: "webkit",
       testMatch: /ui\/.*\.spec\.ts/,
       use: { ...devices["Desktop Safari"] },
     },
   ],
+  timeout: 30000,
 });
