@@ -10,6 +10,9 @@ export class LoginPage {
   readonly otpInput: Locator;
   readonly passkeyLater: Locator;
   readonly errorMessage: Locator;
+  readonly accountVerificationHeader: Locator;
+  readonly accountVerificationEmailInput: Locator;
+  readonly accountVerificationVerifyButton: Locator;
 
   constructor(private page: Page) {
     this.passwordInput = page.locator('[data-testid="txtPassword"]');
@@ -34,6 +37,9 @@ export class LoginPage {
       .or(page.locator("span", { hasText: "Skip for now" }).first());
 
     this.errorMessage = page.locator("span", { hasText: /Email or password doesn't match.|Email atau kata sandi salah./i });
+    this.accountVerificationHeader = page.getByRole("heading", { name: /Account Verification|Verifikasi Akun/i });
+    this.accountVerificationEmailInput = page.locator("#email");
+    this.accountVerificationVerifyButton = page.getByRole("button", { name: /Verify|Verifikasi/i });
   }
 
   async goto() {
@@ -67,7 +73,7 @@ export class LoginPage {
 
   async clickPasskeyLater() {
     try {
-      await this.passkeyLater.waitFor({ state: "visible", timeout: 5000 });
+      await this.passkeyLater.waitFor({ state: "visible", timeout: 1000 });
       console.log("Passkey later is visible, clicking now...");
       await this.passkeyLater.click();
     } catch (e) {
@@ -95,6 +101,17 @@ export class LoginPage {
 
   async expectToBeOnLoginPage() {
     await expect(this.page).toHaveURL(/.*bliblitiket\.com/);
+  }
+
+  async fillEmailIfNonEMV(email: string) {
+    try {
+      await this.accountVerificationHeader.waitFor({ state: "visible", timeout: 5000 });
+      console.log("Account verification is visible, filling email now...");
+      await this.accountVerificationEmailInput.fill(email);
+      await this.accountVerificationVerifyButton.click();
+    } catch (e) {
+      console.log("Account verification is not visible, skipping.");
+    }
   }
 }
 
