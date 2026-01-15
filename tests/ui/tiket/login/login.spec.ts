@@ -30,4 +30,20 @@ test.describe("Login Page Test", () => {
       await loginPage.loginSuccessVerification();
     });
   });
+
+  test("TIK002 - Login with invalid credentials", async () => {
+    await test.step("When user click continue with phone or email button", async () => {
+      await loginPage.clickContinuePhoneOrEmailButton();
+    });
+
+    await test.step("And user continue login using email but input wrong password", async () => {
+      await loginPage.fillEmailOrPhone("anak.gembala1@yopmail.com");
+      await loginPage.fillPassword("WrongPassword");
+      await loginPage.clickLogin();
+    });
+
+    await test.step("Then user should see error message", async () => {
+      
+    });
+  });
 });
