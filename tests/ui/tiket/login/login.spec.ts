@@ -43,7 +43,7 @@ test.describe("Login Page Test", () => {
     });
 
     await test.step("Then user should see error message", async () => {
-      
+        await loginPage.loginFailedVerification();
     });
   });
 });
