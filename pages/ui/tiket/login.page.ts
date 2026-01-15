@@ -9,6 +9,7 @@ export class LoginPage {
   readonly continueButton: Locator;
   readonly otpInput: Locator;
   readonly passkeyLater: Locator;
+  readonly errorMessage: Locator;
 
   constructor(private page: Page) {
     this.passwordInput = page.locator('[data-testid="txtPassword"]');
@@ -31,6 +32,8 @@ export class LoginPage {
       .locator("span", { hasText: "Nanti aja" })
       .first()
       .or(page.locator("span", { hasText: "Skip for now" }).first());
+
+    this.errorMessage = page.locator("span", { hasText: /Email or password doesn't match.|Email atau kata sandi salah./i });
   }
 
   async goto() {
@@ -75,6 +78,11 @@ export class LoginPage {
   async loginSuccessVerification() {
     const baseUrl = getBaseUrl();
     await expect(this.page).toHaveURL(new RegExp(`.*${baseUrl}.*`, "i"));
+  }
+
+  async loginFailedVerification() {
+    await expect(this.page).toHaveURL(/.*bliblitiket\.com/);
+    await expect(this.errorMessage).toBeVisible();
   }
 
   async fillPassword(password: string) {
