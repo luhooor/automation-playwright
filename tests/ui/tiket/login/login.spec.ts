@@ -43,7 +43,24 @@ test.describe("Login Page Test", () => {
     });
 
     await test.step("Then user should see error message", async () => {
-        await loginPage.loginFailedVerification();
+      await loginPage.loginFailedVerification();
+    });
+  });
+
+  test("TIK003 - Login with phone number", async () => {
+    await test.step("When user click continue with phone or email button", async () => {
+      await loginPage.clickContinuePhoneOrEmailButton();
+    });
+
+    await test.step("And user continue login using phone number", async () => {
+      await loginPage.fillEmailOrPhone("7779812341");
+      await loginPage.fillOTP("123456");
+      await loginPage.fillEmailIfNonEMV("anak.gembala1@yopmail.com");
+      await loginPage.clickPasskeyLater();
+    });
+
+    await test.step("Then user is redirected to tiket Homepage", async () => {
+      await loginPage.loginSuccessVerification();
     });
   });
 });
