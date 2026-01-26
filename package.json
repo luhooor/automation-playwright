@@ -32,11 +32,13 @@
   "devDependencies": {
     "@playwright/test": "^1.57.0",
     "@types/node": "^25.0.3",
+    "@types/winston": "^2.4.4",
     "typescript": "^5.9.3"
   },
   "dependencies": {
     "dotenv": "^17.2.3",
     "google-auth-library": "^10.5.0",
-    "google-spreadsheet": "^5.0.2"
+    "google-spreadsheet": "^5.0.2",
+    "winston": "^3.19.0"
   }
 }
