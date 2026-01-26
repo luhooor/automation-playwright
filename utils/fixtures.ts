@@ -1,6 +1,5 @@
 import { test as base } from "@playwright/test";
 import { getTestDataById, shouldRunTest, TestRow } from "./google-sheets";
-import { logger } from "./logger";
 
 export type TestFixtures = {
     testData: TestRow;
