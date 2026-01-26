@@ -1,5 +1,6 @@
 import { test as base } from "@playwright/test";
 import { getTestDataById, shouldRunTest, TestRow } from "./google-sheets";
+import { logger } from "./logger";
 
 export type TestFixtures = {
     testData: TestRow;
@@ -9,7 +10,6 @@ export const test = base.extend<TestFixtures>({
     testData: async ({ }, use, testInfo) => {
         const match = testInfo.title.match(/^([A-Z0-9]+)\s*-/);
         const testId = match ? match[1] : null;
-        console.log(`Test ID: ${testId}`);
 
         if (!testId) {
             base.skip(true, `${testId} is not found in test data sheet`);

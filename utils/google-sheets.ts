@@ -2,6 +2,7 @@ import { GoogleSpreadsheet } from "google-spreadsheet";
 import { JWT } from "google-auth-library";
 import { getEnvironment } from "../configs/env";
 import "dotenv/config";
+import { annotations } from "./logger";
 
 const SHEET_ID = process.env.SHEET_ID || "";
 const SHEET_EMAIL = process.env.SHEET_EMAIL || "";
@@ -96,8 +97,9 @@ export async function getTestDataById(testId: string): Promise<TestRow | undefin
     if (!testData) {
         throw new Error(`Test data for ${testId} not found in Google Sheet`);
     }
-    console.log("Running test: ", testData.testId);
-    console.log("Test data: ", testData.data);
+    annotations.info(`Running Test ID: ${testData.testId}`);
+    annotations.info(`Test Name: ${testData.description}`);
+    annotations.info(`Test data:\n ${JSON.stringify(testData.data, null, 2)}`);
     return testData;
 }
 
