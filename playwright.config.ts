@@ -1,5 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 import { getEnvironment } from "./configs/env";
+import "dotenv/config";
 
 const environment = getEnvironment();
 
