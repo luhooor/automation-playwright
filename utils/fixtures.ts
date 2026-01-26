@@ -9,9 +9,10 @@ export const test = base.extend<TestFixtures>({
     testData: async ({ }, use, testInfo) => {
         const match = testInfo.title.match(/^([A-Z0-9]+)\s*-/);
         const testId = match ? match[1] : null;
+        console.log(`Test ID: ${testId}`);
 
         if (!testId) {
-            base.skip(true, "No Test ID found in test data sheet");
+            base.skip(true, `${testId} is not found in test data sheet`);
             return;
         }
 
