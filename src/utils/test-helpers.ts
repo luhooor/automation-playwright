@@ -1,4 +1,4 @@
-import { EnvConfig, getEnvironment } from "../configs/env";
+import { EnvConfig, getEnvironment } from "../../configs/env";
 
 export function getBaseUrl(): string {
   return getEnvironment().baseURL;

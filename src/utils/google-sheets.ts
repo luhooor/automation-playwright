@@ -1,6 +1,6 @@
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import { JWT } from "google-auth-library";
-import { getEnvironment } from "../configs/env";
+import { getEnvironment } from "../../configs/env";
 import "dotenv/config";
 import { annotations } from "./logger";
 

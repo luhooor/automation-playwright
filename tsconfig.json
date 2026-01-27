@@ -11,5 +11,5 @@
     "moduleResolution": "Bundler",
     "types": ["node", "@playwright/test"]
   },
-  "include": ["tests/**/*", "playwright.config.ts", "utils/**/*", "pages/**/*"]
+  "include": ["src/tests/**/*", "playwright.config.ts", "src/utils/**/*", "src/pages/**/*"]
 }
