@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from "@playwright/test";
-import { getEnvironment } from "../../../configs/env";
+import { getEnvironment } from "../../../../configs/env";
 import { logger } from "../../../utils/logger";
 
 export class LoginPage {
