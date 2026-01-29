@@ -28,16 +28,13 @@ export const logger = winston.createLogger({
     level: process.env.LOG_LEVEL || "info",
     format: combine(timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), logFormat),
     transports: [
-        // 1. Console logging with colors
         new winston.transports.Console({
             format: combine(colorize({ all: true }), logFormat),
         }),
-        // 2. File logging for errors
         new winston.transports.File({
             filename: path.join("logs", "error.log"),
             level: "error",
         }),
-        // 3. Combined file logging for everything
         new winston.transports.File({
             filename: path.join("logs", "combined.log"),
         }),
@@ -62,7 +59,6 @@ function addAnnotation(
             description: formatAnnotationDescription(message, metadata),
         });
     } catch {
-        // Ignore if called outside of a test context
     }
 }
 

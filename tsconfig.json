@@ -10,13 +10,9 @@
         "resolveJsonModule": true,
         "moduleResolution": "Bundler",
         "types": ["node", "@playwright/test"],
-
-        // Stricter type checking
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "noUncheckedIndexedAccess": true,
-
-        // Path aliases for cleaner imports (matches package.json imports)
         "baseUrl": ".",
         "paths": {
             "#pages/*": ["src/pages/*"],
