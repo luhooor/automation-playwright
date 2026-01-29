@@ -3,7 +3,6 @@
   "name": "playwright-automation",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "playwright test",
     "test:chrome:case": "playwright test --project=chromium -g",
@@ -24,15 +23,24 @@
     "test:report": "playwright show-report",
     "test:codegen": "playwright codegen",
     "test:ui:case": "playwright test src/tests/ui -g",
-    "report": "playwright show-report"
+    "report": "playwright show-report",
+    "lint": "eslint src configs --ext .ts",
+    "lint:fix": "eslint src configs --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"configs/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"configs/**/*.ts\"",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "Yanuar Luhur Kurniawan",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^9.0.0",
     "@playwright/test": "^1.57.0",
     "@types/node": "^25.0.3",
-    "@types/winston": "^2.4.4",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.4.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {

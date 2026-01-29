@@ -15,7 +15,7 @@ export class LoginPage {
     readonly accountVerificationEmailInput: Locator;
     readonly accountVerificationVerifyButton: Locator;
 
-    constructor(private page: Page) {
+    constructor(private readonly page: Page) {
         this.passwordInput = page.locator('[data-testid="txtPassword"]');
         this.loginButton = page.getByRole("button", { name: "Log in" });
 
@@ -37,81 +37,111 @@ export class LoginPage {
             .first()
             .or(page.locator("span", { hasText: "Skip for now" }).first());
 
-        this.errorMessage = page.locator("span", { hasText: /Email or password doesn't match.|Email atau kata sandi salah./i });
-        this.accountVerificationHeader = page.getByRole("heading", { name: /Account Verification|Verifikasi Akun/i });
+        this.errorMessage = page.locator("span", {
+            hasText:
+                /Email or password doesn't match.|Email atau kata sandi salah./i,
+        });
+        this.accountVerificationHeader = page.getByRole("heading", {
+            name: /Account Verification|Verifikasi Akun/i,
+        });
         this.accountVerificationEmailInput = page.locator("#email");
-        this.accountVerificationVerifyButton = page.getByRole("button", { name: /Verify|Verifikasi/i });
+        this.accountVerificationVerifyButton = page.getByRole("button", {
+            name: /Verify|Verifikasi/i,
+        });
     }
 
-    async goto() {
+    async goto(): Promise<void> {
         await this.page.goto("/login");
     }
 
-    async clickContinuePhoneOrEmailButton() {
+    async clickContinuePhoneOrEmailButton(): Promise<void> {
         await this.continuePhoneOrEmailButton.click();
     }
 
-    async fillEmailOrPhone(emailOrPhone: string) {
+    async fillEmailOrPhone(emailOrPhone: string): Promise<void> {
+        if (!emailOrPhone) throw new Error("Email or phone is required");
         await expect(this.emailOrPhoneInput).toBeVisible();
         await this.emailOrPhoneInput.fill(emailOrPhone);
         await this.continueButton.click();
     }
 
-    async fillOTP(otp: string) {
+    async fillOTP(otp: string): Promise<void> {
         try {
-            await this.otpInput.first().waitFor({ state: "visible", timeout: 5000 });
+            await this.otpInput
+                .first()
+                .waitFor({ state: "visible", timeout: 5000 });
             logger.info("OTP is visible, filling now...");
             const digits = otp.split("");
             for (let i = 0; i < digits.length; i++) {
-                await this.otpInput.nth(i).fill(digits[i]);
+                await this.otpInput.nth(i).fill(digits[i] ?? "");
             }
-        } catch (e) {
-            logger.warn("OTP input did not appear, skipping.");
+        } catch (error: unknown) {
+            const message =
+                error instanceof Error ? error.message : String(error);
+            logger.warn("OTP input did not appear, skipping.", {
+                error: message,
+            });
         }
 
         await this.clickPasskeyLater();
     }
 
-    async clickPasskeyLater() {
+    async clickPasskeyLater(): Promise<void> {
         try {
-            await this.passkeyLater.waitFor({ state: "visible", timeout: 1000 });
+            await this.passkeyLater.waitFor({
+                state: "visible",
+                timeout: 1000,
+            });
             logger.info("Passkey later is visible, clicking now...");
             await this.passkeyLater.click();
-        } catch (e) {
-            logger.warn("Passkey later input did not appear, skipping.");
+        } catch (error: unknown) {
+            const message =
+                error instanceof Error ? error.message : String(error);
+            logger.warn("Passkey later input did not appear, skipping.", {
+                error: message,
+            });
         }
     }
 
-    async loginSuccessVerification() {
+    async loginSuccessVerification(): Promise<void> {
         const baseUrl = getBaseUrl();
         await expect(this.page).toHaveURL(new RegExp(`.*${baseUrl}.*`, "i"));
     }
 
-    async loginFailedVerification() {
+    async loginFailedVerification(): Promise<void> {
         await expect(this.page).toHaveURL(/.*bliblitiket\.com/);
         await expect(this.errorMessage).toBeVisible();
     }
 
-    async fillPassword(password: string) {
+    async fillPassword(password: string): Promise<void> {
         await this.passwordInput.fill(password);
     }
 
-    async clickLogin() {
+    async clickLogin(): Promise<void> {
         await this.loginButton.click();
     }
 
-    async expectToBeOnLoginPage() {
+    async expectToBeOnLoginPage(): Promise<void> {
         await expect(this.page).toHaveURL(/.*bliblitiket\.com/);
     }
 
-    async fillEmailIfNonEMV(email: string) {
+    async fillEmailIfNonEMV(email: string): Promise<void> {
         try {
-            await this.accountVerificationHeader.waitFor({ state: "visible", timeout: 5000 });
-            logger.info("Account verification is visible, filling email now...");
+            await this.accountVerificationHeader.waitFor({
+                state: "visible",
+                timeout: 5000,
+            });
+            logger.info(
+                "Account verification is visible, filling email now..."
+            );
             await this.accountVerificationEmailInput.fill(email);
             await this.accountVerificationVerifyButton.click();
-        } catch (e) {
-            logger.warn("Account verification is not visible, skipping.");
+        } catch (error: unknown) {
+            const message =
+                error instanceof Error ? error.message : String(error);
+            logger.warn("Account verification is not visible, skipping.", {
+                error: message,
+            });
         }
     }
 }

@@ -9,7 +9,20 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "moduleResolution": "Bundler",
-    "types": ["node", "@playwright/test"]
+    "types": ["node", "@playwright/test"],
+
+    // Stricter type checking
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+
+    // Path aliases for cleaner imports
+    "baseUrl": ".",
+    "paths": {
+      "@pages/*": ["src/pages/*"],
+      "@utils/*": ["src/utils/*"],
+      "@configs/*": ["configs/*"]
+    }
   },
-  "include": ["src/tests/**/*", "playwright.config.ts", "src/utils/**/*", "src/pages/**/*"]
+  "include": ["src/**/*", "configs/**/*", "playwright.config.ts"]
 }
