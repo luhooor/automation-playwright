@@ -1,10 +1,18 @@
+/**
+ * Logger utility with Playwright HTML report integration.
+ * 
+ * Usage:
+ *   import { logger, annotations } from "../utils/logger";
+ *   
+ *   logger.info("Regular log message");         // Only logs to console/file
+ *   annotations.info("Annotated message");      // Logs AND adds to HTML report
+ */
+
 import winston from 'winston';
 import path from 'path';
 import { test } from '@playwright/test';
 
 const { combine, timestamp, printf, colorize } = winston.format;
-
-// Custom log format
 const logFormat = printf(({ level, message, timestamp, ...metadata }) => {
   let msg = `${timestamp} [${level}]: ${message}`;
   if (Object.keys(metadata).length > 0) {

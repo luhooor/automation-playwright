@@ -1,6 +1,6 @@
 import { Page, Locator, expect } from "@playwright/test";
-import { getEnvironment } from "../../../../configs/env";
 import { logger } from "../../../utils/logger";
+import { getBaseUrl } from "../../../utils/test-helpers";
 
 export class LoginPage {
     readonly passwordInput: Locator;
@@ -114,8 +114,4 @@ export class LoginPage {
             logger.warn("Account verification is not visible, skipping.");
         }
     }
-}
-
-function getBaseUrl(): string | RegExp | ((url: URL) => boolean) {
-    return getEnvironment().baseURL;
 }

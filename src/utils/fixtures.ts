@@ -1,3 +1,21 @@
+/**
+ * Custom test fixtures for Google Sheets integration.
+ * 
+ * This fixture automatically fetches test data from Google Sheets based on the test ID.
+ * Test titles MUST start with the Test ID pattern: "TIK001 - test description"
+ * 
+ * Usage:
+ *   import { test, expect } from "../utils/fixtures";
+ *   
+ *   test("TIK001 - my test case", async ({ testData }) => {
+ *       const { email, password } = testData.data;
+ *       // ... your test code
+ *   });
+ * 
+ * If you don't need Google Sheets integration, use standard Playwright imports:
+ *   import { test, expect } from "@playwright/test";
+ */
+
 import { test as base } from "@playwright/test";
 import { getTestDataById, shouldRunTest, TestRow } from "./google-sheets";
 

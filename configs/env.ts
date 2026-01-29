@@ -1,3 +1,14 @@
+/**
+ * Environment configuration.
+ * 
+ * Set the ENVIRONMENT variable to switch environments:
+ *   ENVIRONMENT=staging npm test
+ *   ENVIRONMENT=preprod npm test
+ *   ENVIRONMENT=production npm test
+ * 
+ * Or use the npm scripts: npm run test:staging, npm run test:preprod, npm run test:prod
+ */
+
 export interface EnvConfig {
     name: string;
     baseURL: string;
@@ -25,7 +36,7 @@ export const environments: Record<string, EnvConfig> = {
 export const getEnvironment = (): EnvConfig => {
   const environment = process.env.ENVIRONMENT || "preprod";
   if (!environments[environment]) {
-    throw new Error(`Environment "${environment}" is not defined in the environments object`);
+    throw new Error(`Environment "${environment}" is not defined. Available: ${Object.keys(environments).join(", ")}`);
   }
   return environments[environment];
 };

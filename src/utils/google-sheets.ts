@@ -1,3 +1,17 @@
+/**
+ * Google Sheets integration for test data management.
+ * 
+ * Expected sheet columns:
+ *   - Test ID: Unique identifier (e.g., TIK001)
+ *   - Description: Test case description
+ *   - Daily Run: "Y" or "N" - whether to run in daily suite
+ *   - Regression: "Y" or "N" - whether to run in regression suite
+ *   - Smoke Test: "Y" or "N" - whether to run in smoke suite
+ *   - Data - Staging: Test data for staging (format: "key1:value1, key2:value2")
+ *   - Data - Preprod: Test data for preprod
+ *   - Data - Prod: Test data for production
+ */
+
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import { JWT } from "google-auth-library";
 import { getEnvironment } from "../../configs/env";
