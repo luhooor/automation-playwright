@@ -59,6 +59,7 @@ function addAnnotation(
             description: formatAnnotationDescription(message, metadata),
         });
     } catch {
+        logger.error("Error adding annotation", { type, message, metadata });
     }
 }
 
