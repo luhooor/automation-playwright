@@ -1,5 +1,5 @@
-import { test, expect } from "../../../../utils/fixtures";
-import { LoginPage } from "../../../../pages/ui/tiket/login.page";
+import { test } from "#utils/fixtures";
+import { LoginPage } from "#pages/ui/tiket/login.page";
 
 test.describe("Login Page Test", () => {
     let loginPage: LoginPage;
@@ -9,7 +9,7 @@ test.describe("Login Page Test", () => {
     });
 
     test("TIK001 - login with valid credentials", async ({ testData }) => {
-        const { email, password, otp } = testData.data;
+        const { email = "", password = "", otp = "" } = testData.data;
 
         await test.step("Given user go to login page and redirected to UNM login page", async () => {
             await loginPage.goto();
@@ -33,7 +33,7 @@ test.describe("Login Page Test", () => {
     });
 
     test("TIK002 - Login with invalid credentials", async ({ testData }) => {
-        const { email, password } = testData.data;
+        const { email = "", password = "" } = testData.data;
 
         await test.step("When user click continue with phone or email button", async () => {
             await loginPage.clickContinuePhoneOrEmailButton();
@@ -51,7 +51,7 @@ test.describe("Login Page Test", () => {
     });
 
     test("TIK003 - Login with phone number", async ({ testData }) => {
-        const { phone, otp, email } = testData.data;
+        const { phone = "", otp = "", email = "" } = testData.data;
 
         await test.step("When user click continue with phone or email button", async () => {
             await loginPage.clickContinuePhoneOrEmailButton();
