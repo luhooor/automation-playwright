@@ -1,206 +1,272 @@
 # Playwright Automation Framework
 
-A comprehensive Playwright testing framework for both UI and API testing with multi-environment support (Staging, Preproduction, Production).
+A TypeScript-based Playwright testing framework for UI and API testing with multi-environment support, Google Sheets test data integration, and comprehensive logging.
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
-- npm or yarn
+- Node.js v18+
+- npm
 
 ### Installation
 
-1. **Clone the repository** (if applicable) or navigate to the project directory:
-
-   ```bash
-   cd playwright-automation
-   ```
-
-2. **Install dependencies**:
-
-   ```bash
-   npm install
-   ```
-
-3. **Install Playwright browsers**:
-
-   ```bash
-   npx playwright install
-   ```
-
-4. **Configure environment variables** (optional):
-
-   Create a `.env` file in the root directory (or set environment variables):
-
-   ```bash
-   # Default environment (if not set, defaults to preprod)
-   ENVIRONMENT=preprod
-
-   # Staging Environment URLs
-   STAGING_BASE_URL=https://gatotkaca.tiket.com
-   STAGING_API_URL=https://gatotkaca.tiket.com
-
-   # Preproduction Environment URLs
-   PREPROD_BASE_URL=https://preprod.tiket.com
-   PREPROD_API_URL=https://preprod.tiket.com
-
-   # Production Environment URLs
-   PRODUCTION_BASE_URL=https://tiket.com
-   PRODUCTION_API_URL=https://tiket.com
-   ```
-
-## 🧪 Running Tests
-
-### Run All Tests
-
 ```bash
-# Default environment (preprod)
-npm test
-
-# Specific environment
-npm run test:staging
-npm run test:preprod
-npm run test:prod
+npm install
+npx playwright install
 ```
 
-### Run UI Tests Only
+### Configuration
+
+Copy `.env.example` to `.env` and configure:
 
 ```bash
-# Default environment
-npm run test:ui
+cp .env.example .env
+```
 
-# Specific environment
+## Running Tests
+
+### All Tests
+
+```bash
+npm test                    # Default (preprod)
+npm run test:staging        # Staging environment
+npm run test:preprod        # Preproduction environment
+npm run test:prod           # Production environment
+```
+
+### UI Tests
+
+```bash
+npm run test:ui
 npm run test:ui:staging
 npm run test:ui:preprod
 npm run test:ui:prod
 ```
 
-### Run API Tests Only
+### API Tests
 
 ```bash
-# Default environment
 npm run test:api
-
-# Specific environment
 npm run test:api:staging
 npm run test:api:preprod
 npm run test:api:prod
 ```
 
-### Other Useful Commands
+### Debug & Development
 
 ```bash
-# Run tests in headed mode (see browser)
-npm run test:headed
-
-# Run tests in debug mode
-npm run test:debug
-
-# Generate test code using Playwright Codegen
-npm run test:codegen
-
-# View test report
-npm run test:report
-# or
-npm run report
+npm run test:headed         # Run with visible browser
+npm run test:debug          # Run in debug mode
+npm run test:codegen        # Generate test code
+npm run report              # View HTML report
 ```
 
-## 🌍 Environment Configuration
-
-The project supports three environments:
-
-- **Staging**: `https://gatotkaca.tiket.com`
-- **Preproduction**: `https://preprod.tiket.com` (default)
-- **Production**: `https://tiket.com`
-
-### Setting Environment
-
-You can set the environment in three ways:
-
-1. **Using npm scripts** (recommended):
-
-   ```bash
-   npm run test:staging
-   npm run test:preprod
-   npm run test:prod
-   ```
-
-2. **Using environment variable**:
-
-   ```bash
-   ENVIRONMENT=staging npm test
-   ENVIRONMENT=preprod npm test
-   ENVIRONMENT=production npm test
-   ```
-
-3. **Using .env file**:
-   ```bash
-   ENVIRONMENT=staging
-   ```
-
-### Customizing Environment URLs
-
-You can override the default URLs by setting environment variables:
+### Run Specific Test
 
 ```bash
-# For staging
-STAGING_BASE_URL=https://your-staging-url.com
-STAGING_API_URL=https://api.your-staging-url.com
-
-# For preproduction
-PREPROD_BASE_URL=https://your-preprod-url.com
-PREPROD_API_URL=https://api.your-preprod-url.com
-
-# For production
-PRODUCTION_BASE_URL=https://your-prod-url.com
-PRODUCTION_API_URL=https://api.your-prod-url.com
+npm run test:chrome:case "test name"
+npm run test:chrome:case:headed "test name"
 ```
 
-## 📁 Project Structure
+## Code Quality
+
+```bash
+npm run typecheck           # TypeScript type checking
+npm run lint                # ESLint
+npm run lint:fix            # ESLint with auto-fix
+npm run format              # Prettier formatting
+npm run format:check        # Check formatting
+```
+
+## Project Structure
 
 ```
 playwright-automation/
 ├── configs/
-│   └── env.ts              # Environment configuration
-├── utils/
-│   └── test-helpers.ts     # Test utility functions
-├── tests/
-│   ├── ui/                 # UI test cases
-│   │   ├── example.spec.ts
-│   │   └── tiket/
-│   │       └── common/
-│   │           └── login.spec.ts
-│   └── api/                # API test cases
-│       └── example.spec.ts
-├── screenshots/            # Screenshots from test runs
-├── test-results/           # Test execution results
-├── playwright-report/      # HTML test reports
-├── playwright.config.ts    # Playwright configuration
-├── package.json
-├── tsconfig.json
-└── README.md
+│   ├── env.ts              # Environment configuration
+│   └── index.ts            # Barrel export
+├── src/
+│   ├── pages/
+│   │   ├── ui/
+│   │   │   └── tiket/
+│   │   │       └── login.page.ts
+│   │   └── index.ts        # Barrel export
+│   ├── tests/
+│   │   ├── api/
+│   │   │   └── example.spec.ts
+│   │   └── ui/
+│   │       └── tiket/
+│   │           └── login/
+│   │               └── login.spec.ts
+│   └── utils/
+│       ├── fixtures.ts     # Custom test fixtures
+│       ├── google-sheets.ts# Google Sheets integration
+│       ├── logger.ts       # Winston logger with annotations
+│       ├── test-helpers.ts # Environment helpers
+│       └── index.ts        # Barrel export
+├── logs/                   # Log files (auto-generated)
+├── playwright-report/      # HTML reports (auto-generated)
+├── test-results/           # Test artifacts (auto-generated)
+├── .env.example            # Environment template
+├── .prettierrc             # Prettier config
+├── eslint.config.js        # ESLint config
+├── playwright.config.ts    # Playwright config
+└── tsconfig.json           # TypeScript config
 ```
 
-## 📊 Test Reports
+## Import Aliases
 
-After running tests, view the HTML report:
+The project uses Node.js subpath imports for clean paths:
+
+```typescript
+import { test, expect } from "#utils/fixtures";
+import { LoginPage } from "#pages/ui/tiket/login.page";
+import { getEnvironment } from "#configs/env";
+```
+
+| Alias        | Path          |
+| ------------ | ------------- |
+| `#utils/*`   | `src/utils/*` |
+| `#pages/*`   | `src/pages/*` |
+| `#configs/*` | `configs/*`   |
+
+## Environment Configuration
+
+### Supported Environments
+
+| Environment | Base URL                    |
+| ----------- | --------------------------- |
+| staging     | https://gatotkaca.tiket.com |
+| preprod     | https://preprod.tiket.com   |
+| production  | https://tiket.com           |
+
+### Setting Environment
+
+```bash
+# Via npm scripts
+npm run test:staging
+
+# Via environment variable
+ENVIRONMENT=staging npm test
+
+# Via .env file
+ENVIRONMENT=staging
+```
+
+## Google Sheets Integration
+
+Test data can be managed via Google Sheets. Configure in `.env`:
+
+```bash
+SHEET_ID=your-google-sheet-id
+SHEET_EMAIL=your-service-account@project.iam.gserviceaccount.com
+SHEET_KEY=-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----
+```
+
+### Test Data Format
+
+Tests using the `testData` fixture must have titles starting with a Test ID:
+
+```typescript
+import { test } from "#utils/fixtures";
+
+test("TIK001 - login with valid credentials", async ({ testData }) => {
+    const { email, password } = testData.data;
+});
+```
+
+### Expected Sheet Columns
+
+| Column         | Description                                |
+| -------------- | ------------------------------------------ |
+| Test ID        | Unique identifier (e.g., TIK001)           |
+| Description    | Test case description                      |
+| Daily Run      | "Y" or "N"                                 |
+| Regression     | "Y" or "N"                                 |
+| Smoke Test     | "Y" or "N"                                 |
+| Data - Staging | Test data (format: `key1:val1, key2:val2`) |
+| Data - Preprod | Test data for preprod                      |
+| Data - Prod    | Test data for production                   |
+
+## Logging
+
+The framework includes Winston logger with Playwright HTML report annotations:
+
+```typescript
+import { logger, annotations } from "#utils/logger";
+
+logger.info("Regular log"); // Console + file only
+annotations.info("Annotated log"); // Console + file + HTML report
+```
+
+## Test Reports
+
+View the HTML report after test execution:
 
 ```bash
 npm run report
 ```
 
-The report includes:
+Reports include:
 
-- Test execution results
+- Test results with annotations
 - Screenshots (on failure)
 - Videos (on failure)
 - Traces (on first retry)
 
-## 🎯 Best Practices
+## Writing Tests
 
-1. **Use environment helpers**: Always use `getBaseUrl()` and `getApiUrl()` instead of hardcoding URLs
-2. **Environment-specific tests**: Use environment variables to conditionally run tests
-3. **Page Object Model**: Consider using Page Object Model for complex UI tests
-4. **Test isolation**: Each test should be independent and not rely on other tests
-5. **Meaningful test names**: Use descriptive test names that explain what is being tested
+### Page Object Model
+
+```typescript
+// src/pages/ui/example/example.page.ts
+import { Page, Locator, expect } from "@playwright/test";
+
+export class ExamplePage {
+    readonly submitButton: Locator;
+
+    constructor(private readonly page: Page) {
+        this.submitButton = page.getByRole("button", { name: "Submit" });
+    }
+
+    async goto(): Promise<void> {
+        await this.page.goto("/example");
+    }
+
+    async submit(): Promise<void> {
+        await this.submitButton.click();
+    }
+}
+```
+
+### Test with Google Sheets Data
+
+```typescript
+import { test } from "#utils/fixtures";
+import { ExamplePage } from "#pages/ui/example/example.page";
+
+test("TIK001 - example test", async ({ page, testData }) => {
+    const examplePage = new ExamplePage(page);
+    const { username } = testData.data;
+
+    await test.step("Navigate to page", async () => {
+        await examplePage.goto();
+    });
+
+    await test.step("Submit form", async () => {
+        await examplePage.submit();
+    });
+});
+```
+
+### Standard Playwright Test
+
+```typescript
+import { test, expect } from "@playwright/test";
+
+test("example test", async ({ page }) => {
+    await page.goto("/");
+    await expect(page).toHaveTitle(/Example/);
+});
+```
