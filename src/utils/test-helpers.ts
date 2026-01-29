@@ -6,7 +6,7 @@
  *   const url = getBaseUrl(); // returns the baseURL for current environment
  */
 
-import { getEnvironment, type EnvConfig } from "../../configs/env";
+import { getEnvironment, type EnvConfig } from "#configs/env";
 
 export function getBaseUrl(): string {
     return getEnvironment().baseURL;

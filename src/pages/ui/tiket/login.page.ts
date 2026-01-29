@@ -1,6 +1,6 @@
 import { Page, Locator, expect } from "@playwright/test";
-import { logger } from "../../../utils/logger";
-import { getBaseUrl } from "../../../utils/test-helpers";
+import { logger } from "#utils/logger";
+import { getBaseUrl } from "#utils/test-helpers";
 
 export class LoginPage {
     readonly passwordInput: Locator;

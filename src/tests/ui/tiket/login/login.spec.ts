@@ -1,5 +1,5 @@
-import { test } from "../../../../utils/fixtures";
-import { LoginPage } from "../../../../pages/ui/tiket/login.page";
+import { test } from "#utils/fixtures";
+import { LoginPage } from "#pages/ui/tiket/login.page";
 
 test.describe("Login Page Test", () => {
     let loginPage: LoginPage;

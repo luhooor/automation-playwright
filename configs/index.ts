@@ -2,8 +2,8 @@
  * Barrel export for configuration modules.
  *
  * Usage:
- *   import { getEnvironment, environments } from "../configs";
+ *   import { getEnvironment, environments } from "#configs";
  */
 
-export { getEnvironment, environments } from "./env";
-export type { EnvConfig, EnvironmentName } from "./env";
+export { getEnvironment, environments } from "#configs/env";
+export type { EnvConfig, EnvironmentName } from "#configs/env";

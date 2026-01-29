@@ -2,15 +2,15 @@
  * Barrel export for utility modules.
  *
  * Usage:
- *   import { test, expect, logger, annotations, getBaseUrl } from "../utils";
+ *   import { test, expect, logger, annotations, getBaseUrl } from "#utils";
  */
 
 // Test fixtures
-export { test, expect } from "./fixtures";
-export type { TestFixtures, TestSuite } from "./fixtures";
+export { test, expect } from "#utils/fixtures";
+export type { TestFixtures, TestSuite } from "#utils/fixtures";
 
 // Logger utilities
-export { logger, annotations } from "./logger";
+export { logger, annotations } from "#utils/logger";
 
 // Google Sheets integration
 export {
@@ -18,8 +18,8 @@ export {
     getAllTestData,
     getTestDataById,
     shouldRunTest,
-} from "./google-sheets";
-export type { TestData, TestRow } from "./google-sheets";
+} from "#utils/google-sheets";
+export type { TestData, TestRow } from "#utils/google-sheets";
 
 // Test helpers
 export {
@@ -27,4 +27,4 @@ export {
     getApiUrl,
     getEnvironmentName,
     getCurrentEnvironment,
-} from "./test-helpers";
+} from "#utils/test-helpers";

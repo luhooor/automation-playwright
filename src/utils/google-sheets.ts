@@ -14,9 +14,9 @@
 
 import { GoogleSpreadsheet, GoogleSpreadsheetRow } from "google-spreadsheet";
 import { JWT } from "google-auth-library";
-import { getEnvironment } from "../../configs/env";
+import { getEnvironment } from "#configs/env";
 import "dotenv/config";
-import { annotations } from "./logger";
+import { annotations } from "#utils/logger";
 
 const SHEET_ID = process.env.SHEET_ID || "";
 const SHEET_EMAIL = process.env.SHEET_EMAIL || "";

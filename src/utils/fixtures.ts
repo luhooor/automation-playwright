@@ -17,7 +17,7 @@
  */
 
 import { test as base } from "@playwright/test";
-import { getTestDataById, shouldRunTest, TestRow } from "./google-sheets";
+import { getTestDataById, shouldRunTest, type TestRow } from "#utils/google-sheets";
 
 export type TestSuite = "regression" | "smoke" | "daily" | "all";
 
@@ -52,10 +52,10 @@ export const test = base.extend<TestFixtures>({
                 suite === "regression"
                     ? row.regression
                     : suite === "smoke"
-                      ? row.smokeTest
-                      : suite === "daily"
-                        ? row.dailyRun
-                        : "N/A";
+                        ? row.smokeTest
+                        : suite === "daily"
+                            ? row.dailyRun
+                            : "N/A";
             base.skip(
                 true,
                 `Skipped ${testId}: Daily Run=${row.dailyRun}, ${suite}=${suiteValue}`

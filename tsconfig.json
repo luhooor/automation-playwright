@@ -1,28 +1,28 @@
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "lib": ["ES2022"],
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "Bundler",
-    "types": ["node", "@playwright/test"],
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "ESNext",
+        "lib": ["ES2022"],
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "moduleResolution": "Bundler",
+        "types": ["node", "@playwright/test"],
 
-    // Stricter type checking
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
+        // Stricter type checking
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUncheckedIndexedAccess": true,
 
-    // Path aliases for cleaner imports
-    "baseUrl": ".",
-    "paths": {
-      "@pages/*": ["src/pages/*"],
-      "@utils/*": ["src/utils/*"],
-      "@configs/*": ["configs/*"]
-    }
-  },
-  "include": ["src/**/*", "configs/**/*", "playwright.config.ts"]
+        // Path aliases for cleaner imports (matches package.json imports)
+        "baseUrl": ".",
+        "paths": {
+            "#pages/*": ["src/pages/*"],
+            "#utils/*": ["src/utils/*"],
+            "#configs/*": ["configs/*"]
+        }
+    },
+    "include": ["src/**/*", "configs/**/*", "playwright.config.ts"]
 }
