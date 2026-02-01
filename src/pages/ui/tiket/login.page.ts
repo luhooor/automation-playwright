@@ -1,8 +1,9 @@
 import { Page, Locator, expect } from "@playwright/test";
 import { logger } from "#utils/logger";
 import { getBaseUrl } from "#utils/test-helpers";
+import { BasePage } from "#pages/base.page";
 
-export class LoginPage {
+export class LoginPage extends BasePage {
     readonly passwordInput: Locator;
     readonly loginButton: Locator;
     readonly continuePhoneOrEmailButton: Locator;
@@ -15,7 +16,8 @@ export class LoginPage {
     readonly accountVerificationEmailInput: Locator;
     readonly accountVerificationVerifyButton: Locator;
 
-    constructor(private readonly page: Page) {
+    constructor(protected readonly page: Page) {
+        super(page);
         this.passwordInput = page.locator('[data-testid="txtPassword"]');
         this.loginButton = page.getByRole("button", { name: "Log in" });
 

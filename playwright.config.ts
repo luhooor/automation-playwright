@@ -16,6 +16,12 @@ export default defineConfig({
         screenshot: "only-on-failure",
         video: "retain-on-failure",
         baseURL: environment.baseURL,
+        launchOptions: {
+            args: [
+                "--disable-features=WebAuthentication",
+                "--disable-blink-features=PublicKeyCredential",
+            ],
+        },
     },
 
     projects: [
@@ -43,6 +49,16 @@ export default defineConfig({
             name: "webkit",
             testMatch: /ui\/.*\.spec\.ts/,
             use: { ...devices["Desktop Safari"] },
+        },
+        {
+            name: "mobile-chrome",
+            testMatch: /ui\/.*\.spec\.ts/,
+            use: { ...devices["Pixel 7"] },
+        },
+        {
+            name: "mobile-safari",
+            testMatch: /ui\/.*\.spec\.ts/,
+            use: { ...devices["iPhone 15"] },
         },
     ],
     timeout: 30000,

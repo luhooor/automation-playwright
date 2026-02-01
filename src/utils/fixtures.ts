@@ -23,10 +23,45 @@ export type TestSuite = "regression" | "smoke" | "daily" | "all";
 
 export interface TestFixtures {
     testData: TestRow;
+    disableWebAuthn: void;
 }
 
+/**
+ * Script injected into pages to disable WebAuthn/Passkey functionality.
+ * This prevents the native passkey dialog from appearing.
+ */
+const DISABLE_WEBAUTHN_SCRIPT = `
+    // Override PublicKeyCredential to make it appear unsupported
+    Object.defineProperty(window, 'PublicKeyCredential', {
+        value: undefined,
+        writable: false,
+        configurable: false
+    });
+    
+    // Override navigator.credentials methods
+    if (navigator.credentials) {
+        navigator.credentials.get = async () => null;
+        navigator.credentials.create = async () => null;
+        
+        // Disable conditional mediation check
+        if (navigator.credentials.conditionalMediationSupported) {
+            navigator.credentials.conditionalMediationSupported = async () => false;
+        }
+    }
+    
+    // Override isConditionalMediationAvailable if it exists
+    if (window.PublicKeyCredential?.isConditionalMediationAvailable) {
+        window.PublicKeyCredential.isConditionalMediationAvailable = async () => false;
+    }
+`;
+
 export const test = base.extend<TestFixtures>({
-    testData: async (_, use, testInfo) => {
+    disableWebAuthn: [async ({ context }, use) => {
+        await context.addInitScript(DISABLE_WEBAUTHN_SCRIPT);
+        await use();
+    }, { auto: true }],
+
+    testData: async ({}, use, testInfo) => {
         const match = testInfo.title.match(/^([A-Z0-9]+)\s*-/);
         const testId = match?.[1] ?? null;
 
