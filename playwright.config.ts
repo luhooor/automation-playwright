@@ -17,11 +17,8 @@ export default defineConfig({
         video: "retain-on-failure",
         baseURL: environment.baseURL,
         launchOptions: {
-            args: [
-                "--disable-features=WebAuthentication",
-                "--disable-blink-features=PublicKeyCredential",
-            ],
-        },
+            slowMo: 200
+        }
     },
 
     projects: [
@@ -36,7 +33,14 @@ export default defineConfig({
         {
             name: "chromium",
             testMatch: /ui\/.*\.spec\.ts/,
-            use: { ...devices["Desktop Chrome"], channel: "chrome" },
+            use: {
+                ...devices["Desktop Chrome"], channel: "chrome", launchOptions: {
+                    args: [
+                        "--disable-features=WebAuthentication",
+                        "--disable-blink-features=PublicKeyCredential",
+                    ],
+                }
+            },
         },
 
         {
@@ -53,7 +57,14 @@ export default defineConfig({
         {
             name: "mobile-chrome",
             testMatch: /ui\/.*\.spec\.ts/,
-            use: { ...devices["Pixel 7"] },
+            use: {
+                ...devices["Pixel 7"], launchOptions: {
+                    args: [
+                        "--disable-features=WebAuthentication",
+                        "--disable-blink-features=PublicKeyCredential",
+                    ],
+                }
+            },
         },
         {
             name: "mobile-safari",
