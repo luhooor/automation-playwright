@@ -16,6 +16,9 @@ export default defineConfig({
         screenshot: "only-on-failure",
         video: "retain-on-failure",
         baseURL: environment.baseURL,
+        launchOptions: {
+            slowMo: 200
+        }
     },
 
     projects: [
@@ -30,7 +33,14 @@ export default defineConfig({
         {
             name: "chromium",
             testMatch: /ui\/.*\.spec\.ts/,
-            use: { ...devices["Desktop Chrome"], channel: "chrome" },
+            use: {
+                ...devices["Desktop Chrome"], channel: "chrome", launchOptions: {
+                    args: [
+                        "--disable-features=WebAuthentication",
+                        "--disable-blink-features=PublicKeyCredential",
+                    ],
+                }
+            },
         },
 
         {
@@ -43,6 +53,23 @@ export default defineConfig({
             name: "webkit",
             testMatch: /ui\/.*\.spec\.ts/,
             use: { ...devices["Desktop Safari"] },
+        },
+        {
+            name: "mobile-chrome",
+            testMatch: /ui\/.*\.spec\.ts/,
+            use: {
+                ...devices["Pixel 7"], launchOptions: {
+                    args: [
+                        "--disable-features=WebAuthentication",
+                        "--disable-blink-features=PublicKeyCredential",
+                    ],
+                }
+            },
+        },
+        {
+            name: "mobile-safari",
+            testMatch: /ui\/.*\.spec\.ts/,
+            use: { ...devices["iPhone 15"] },
         },
     ],
     timeout: 30000,
