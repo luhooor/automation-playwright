@@ -1,6 +1,6 @@
 # Playwright Automation Framework
 
-A TypeScript-based Playwright testing framework for UI and API testing with multi-environment support, Google Sheets test data integration, and comprehensive logging.
+A TypeScript-based Playwright testing framework for UI testing with multi-environment support, Google Sheets test data integration, and comprehensive logging.
 
 ## Quick Start
 
@@ -44,15 +44,6 @@ npm run test:ui:preprod
 npm run test:ui:prod
 ```
 
-### API Tests
-
-```bash
-npm run test:api
-npm run test:api:staging
-npm run test:api:preprod
-npm run test:api:prod
-```
-
 ### Debug & Development
 
 ```bash
@@ -93,8 +84,6 @@ playwright-automation/
 │   │   │       └── login.page.ts
 │   │   └── index.ts        # Barrel export
 │   ├── tests/
-│   │   ├── api/
-│   │   │   └── example.spec.ts
 │   │   └── ui/
 │   │       └── tiket/
 │   │           └── login/
