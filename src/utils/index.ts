@@ -20,7 +20,6 @@ export type { TestData, TestRow } from "#utils/google-sheets";
 
 export {
     getBaseUrl,
-    getApiUrl,
     getEnvironmentName,
     getCurrentEnvironment,
 } from "#utils/test-helpers";

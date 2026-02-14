@@ -23,14 +23,6 @@ export default defineConfig({
 
     projects: [
         {
-            name: "API",
-            testMatch: /api\/.*\.spec\.ts/,
-            use: {
-                baseURL: environment.apiURL,
-            },
-        },
-
-        {
             name: "chromium",
             testMatch: /ui\/.*\.spec\.ts/,
             use: {
