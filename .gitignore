@@ -13,3 +13,7 @@ learn_js.md
 .env.local
 .env
 *.md
+playwright/.cache/
+.playwright-cli/
+.claude/
+.playwright/
