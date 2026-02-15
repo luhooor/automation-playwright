@@ -3,7 +3,6 @@ import { logger } from "#utils/logger";
 import { BasePage } from "#pages/base.page";
 
 export class RegisterPage extends BasePage {
-    // --- Login page locators ---
     private readonly CONTINUE_PHONE_OR_EMAIL_BUTTON = this.page.getByRole("button", {
         name: /Continue with Phone or Email|Lanjut dengan nomor HP atau email/i,
     });
@@ -16,7 +15,6 @@ export class RegisterPage extends BasePage {
         name: /^Continue$|^Lanjutkan$/i,
     });
 
-    // --- Registration form locators ---
     private readonly COMPLETE_DETAILS_HEADING = this.page.getByRole("heading", {
         name: /Complete your details|Lengkapi detail akun/i,
     });
@@ -26,10 +24,8 @@ export class RegisterPage extends BasePage {
     private readonly PASSWORD_INPUT = this.page.locator('[data-testid="txtPassword"]');
     private readonly REGISTER_BUTTON = this.page.locator('[data-testid="btnSubmit"]');
 
-    // --- OTP locators ---
     private readonly OTP_INPUT = this.page.locator('[data-testid^="otp-input-"]');
 
-    // --- Post-registration locators ---
     private readonly SUCCESS_HEADING = this.page.getByRole("heading", {
         name: /Congrats! Your account is all set|Selamat! Akunmu sudah siap/i,
     });
@@ -47,13 +43,11 @@ export class RegisterPage extends BasePage {
         super(page);
     }
 
-    // ==================== Navigation ====================
 
     async goto(): Promise<void> {
         await this.page.goto("/login");
     }
 
-    // ==================== Login page actions ====================
 
     async clickContinuePhoneOrEmail(): Promise<void> {
         await this.CONTINUE_PHONE_OR_EMAIL_BUTTON.click();
@@ -68,7 +62,6 @@ export class RegisterPage extends BasePage {
         await this.CONTINUE_BUTTON.click();
     }
 
-    // ==================== Registration form actions ====================
 
     async waitForRegistrationForm(): Promise<void> {
         await expect(this.COMPLETE_DETAILS_HEADING).toBeVisible({ timeout: 10000 });
@@ -94,7 +87,6 @@ export class RegisterPage extends BasePage {
         logger.info("Clicked Register button");
     }
 
-    // ==================== OTP actions ====================
 
     async fillOTP(otp: string): Promise<void> {
         await this.OTP_INPUT.first().waitFor({ state: "visible", timeout: 10000 });
@@ -107,7 +99,6 @@ export class RegisterPage extends BasePage {
         logger.info("OTP filled successfully");
     }
 
-    // ==================== Post-registration actions ====================
 
     async expectRegistrationSuccess(): Promise<void> {
         await expect(this.SUCCESS_HEADING).toBeVisible({ timeout: 15000 });
@@ -115,7 +106,6 @@ export class RegisterPage extends BasePage {
     }
 
     async dismissPopups(): Promise<void> {
-        // Dismiss passkey setup popup
         try {
             await this.SKIP_PASSKEY_BUTTON.waitFor({ state: "visible", timeout: 5000 });
             logger.info("Passkey popup is visible, clicking Skip for now...");
@@ -130,7 +120,6 @@ export class RegisterPage extends BasePage {
             }
         }
 
-        // Click OK button if visible
         try {
             await this.OK_BUTTON.waitFor({ state: "visible", timeout: 3000 });
             logger.info("OK button is visible, clicking...");

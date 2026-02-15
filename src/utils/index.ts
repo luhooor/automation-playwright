@@ -23,3 +23,9 @@ export {
     getEnvironmentName,
     getCurrentEnvironment,
 } from "#utils/test-helpers";
+
+export {
+    generatePhoneNumber,
+    generateFullName,
+    generateEmail,
+} from "#utils/common-functions";
